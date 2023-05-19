@@ -1,0 +1,34 @@
+from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
+# import libraries
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+%matplotlib inline
+ 
+# Importing Data file
+data = pd.read_csv('D:\coding\python\ml\Iris.csv')
+dataset = pd.DataFrame(data)
+dataset.columns
+
+# Split the dataset into training and testng sets
+x = dataset.drop('Species', axis=1) #Features
+y = dataset['Species'] # Target variable
+# Create a SVM classifier
+clf = SVC(kernel='linear')
+
+# Split into train and test sets
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.33 )
+
+# Train the classifier on the traning data
+clf.fit(x_train, y_train)
+
+# Predict the target variable for the testing data
+y_pred = clf.predict(x_test)
+
+
+from sklearn import metrics
+# Evaluate the accuracy of the classifier 
+accuracy = metrics.accuracy_score(y_test, y_pred)
+print('Accuracy:', accuracy)
